@@ -64,6 +64,7 @@ def _pythonrc_enable_history():
         has_written = [False]
 
         def write_history():
+            sys.stdout.write('\033[0m')
             if not has_written[0]:
                 readline.write_history_file(history_path)
                 print('Written history to %s' % history_path)
@@ -75,7 +76,7 @@ def _pythonrc_enable_history():
                 readline.read_history_file(history_path)
             except IOError:
                 pass
-		
+
         readline.set_history_length(-1)
 
 

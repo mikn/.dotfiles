@@ -27,7 +27,7 @@ def symlink_file(src, dst):
     abspath = os.path.join(dotdir, src)
     relpath = os.path.relpath(abspath, os.path.dirname(dst))
     dstfile = os.path.join(home, dst)
-    if not os.path.islink(dstfile):
+    if not os.path.islink(dstfile) and os.path.exists(dstfile):
         backup_file(dstfile, os.path.join(dotdir, '.backup'))
     if os.path.exists(dstfile) and not args.force:
         return
