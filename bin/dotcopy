@@ -1,0 +1,68 @@
+#! /usr/bin/env python
+import os
+import errno
+import argparse
+home = os.path.expanduser('~')
+dotdir = os.path.join(home, '.dotfiles')
+class Args:
+    debug = False
+    dryrun = False
+    force = False
+args = Args()
+
+def backup_file(src, dstdir):
+    import shutil
+    if os.path.exists(dstdir):
+        if args.debug:
+            print('Overwriting older backup...')
+        if not args.dryrun:
+            shutil.rmtree(dstdir, True)
+    dst = os.path.join(dstdir, os.path.basename(src))
+    if args.debug:
+        print('Backing up file from %s to %s!' % (src, dst))
+    if not args.dryrun:
+        shutil.move(src, dst)
+
+def symlink_file(src, dst):
+    abspath = os.path.join(dotdir, src)
+    relpath = os.path.relpath(abspath, os.path.dirname(dst))
+    dstfile = os.path.join(home, dst)
+    if not os.path.islink(dstfile):
+        backup_file(dstfile, os.path.join(dotdir, '.backup'))
+    if os.path.exists(dstfile) and not args.force:
+        return
+    if args.debug:
+        print('Symlinking from %s to %s!' % (relpath, dstfile))
+    if not args.dryrun:
+        try:
+            os.symlink(relpath, dstfile)
+        except OSError, e:
+            if e.errno == errno.EEXIST:
+                os.remove(dstfile)
+                os.symlink(relpath, dstfile)
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Copy some dotfiles!')
+    parser.add_argument('--debug', action='store_true')
+    parser.add_argument('--dryrun', action='store_true')
+    parser.add_argument('--force', action='store_true')
+    args = parser.parse_args(namespace=args)
+
+    files = []
+    for f in os.listdir(dotdir):
+        if f.startswith('.'):
+            continue
+        if f == 'config':
+            for i in os.listdir(os.path.join(dotdir, f)):
+                i_name = os.path.join(f, i)
+                i_data = i_name, ''.join(['.', i_name])
+                files.append(i_data)
+            continue
+        name = f
+        if f not in ['bin', 'devel']:
+            name = ''.join(['.', f])
+        f_data = f, name
+        files.append(f_data)
+
+    for f_data in files:
+        symlink_file(*f_data)

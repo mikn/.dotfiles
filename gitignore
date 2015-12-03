@@ -1,0 +1,37 @@
+#
+# dotphiles : https://github.com/dotphiles/dotphiles
+#
+# Git global ignores
+#
+# Authors:
+#   Ben O'Hara <bohara@gmail.com>
+#
+
+# Compiled source
+*.pyc
+*.pyo
+
+# IDE specific
+dwsync.xml
+*.tmp
+*.wpr
+*.project
+*.cproject
+*.tmproj
+*.tmproject
+*.vi
+*.komodoproject
+.komodotools
+nbproject
+
+# Other dev-related files
+*.bak
+*.orig
+*.sass-cache
+.directory
+*~
+.svn/*
+*.sw[nop]
+svn-commit.*
+tags
+TAGS
