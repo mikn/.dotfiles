@@ -1,0 +1,9 @@
+[submodule "devel/termite"]
+	path = devel/termite
+	url = git@github.com:thestinger/termite.git
+[submodule "devel/vte-ng"]
+	path = devel/vte-ng
+	url = git@github.com:thestinger/vte-ng.git
+[submodule "devel/i3pystatus"]
+	path = devel/i3pystatus
+	url = git@github.com:enkore/i3pystatus.git
