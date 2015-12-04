@@ -13,13 +13,11 @@ args = Args()
 def backup_file(src, dstdir):
     import shutil
     if os.path.exists(dstdir):
-        if args.debug:
-            print('Overwriting older backup...')
+        print('Overwriting older backup...')
         if not args.dryrun:
             shutil.rmtree(dstdir, True)
     dst = os.path.join(dstdir, os.path.basename(src))
-    if args.debug:
-        print('Backing up file from %s to %s!' % (src, dst))
+    print('Backing up file from %s to %s!' % (src, dst))
     if not args.dryrun:
         shutil.move(src, dst)
 
@@ -31,8 +29,7 @@ def symlink_file(src, dst):
         backup_file(dstfile, os.path.join(dotdir, '.backup'))
     if os.path.exists(dstfile) and not args.force:
         return
-    if args.debug:
-        print('Symlinking from %s to %s!' % (relpath, dstfile))
+    print('Symlinking from %s to %s!' % (relpath, dstfile))
     if not args.dryrun:
         try:
             os.symlink(relpath, dstfile)
