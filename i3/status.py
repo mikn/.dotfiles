@@ -29,7 +29,7 @@ status.register("temp",
 # If you don't have a desktop notification demon yet, take a look at dunst:
 #   http://www.knopwob.org/dunst/
 status.register("battery",
-        format="{status}/{consumption:.2f}W {percentage:.2f}% [{percentage_design:.2f}%] {remaining:%E%hh:%Mm}",
+        format="{status}/{consumption:.2f}W {percentage:.2f}% {remaining:%E%hh:%Mm}",
         alert=True,
         alert_percentage=5,
         status={
@@ -37,11 +37,6 @@ status.register("battery",
             "CHR": "↑",
             "FULL": "=",
             },)
-
-# Displays whether a DHCP client is running
-status.register("runwatch",
-        name="DHCP",
-        path="/var/run/dhclient*.pid",)
 
 # Shows the address and up/down state of eth0. If it is up the address is shown in
 # green (the default value of color_up) and the CIDR-address is shown
@@ -64,7 +59,7 @@ status.register("network",
 # 42/128G [86G]
 status.register("disk",
         path="/",
-        format="{used}/{total}G [{avail}G]",)
+        format="{avail}/{total}G",)
 
 # Shows pulseaudio default sink volume
 #
