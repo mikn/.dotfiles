@@ -14,9 +14,15 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'chriskempson/base16-vim'
 NeoBundle 'bling/vim-airline'
 NeoBundle 'Shougo/neocomplete.vim'
+NeoBundle 'Shougo/unite.vim'
 NeoBundle 'davidhalter/jedi-vim'
 "NeoBundle 'c9s/perlomni.vim' " Requires compilation
 NeoBundle 'python-syntax'
+NeoBundle 'Shougo/vimproc.vim', {
+			\ 'build' : {
+			\     'linux' : 'make',
+			\    },
+			\ }
 
 call neobundle#end()
 
@@ -102,3 +108,28 @@ let g:jedi#auto_vim_configuration = 0
 " python-syntax
 """
 let python_highlight_all = 1
+
+"""
+" unite.vim
+"""
+" Unite
+let g:unite_source_history_yank_enable = 1
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+nnoremap <C-p> :<C-u>Unite -horizontal -buffer-name=files   -start-insert file_rec/async:!<cr>
+nnoremap <C-o> :<C-u>Unite -vertical -buffer-name=outline -start-insert outline<cr>
+nnoremap <C-b> :<C-u>Unite -horizontal -buffer-name=buffer  buffer<cr>
+nnoremap <leader>y :<C-u>Unite -no-split -buffer-name=yank history/yank<cr>
+
+let g:unite_source_rec_async_command =
+			\ ['ag', '--follow', '--nocolor', '--nogroup',
+			\  '--hidden', '-g', '']
+
+" Custom mappings for the unite buffer
+autocmd FileType unite call s:unite_settings()
+function! s:unite_settings()
+	" Play nice with supertab
+	let b:SuperTabDisabled=1
+	" Enable navigation with control-j and control-k in insert mode
+	imap <buffer> <C-j>   <Plug>(unite_select_next_line)
+	imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
+endfunction
