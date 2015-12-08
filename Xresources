@@ -1,4 +1,9 @@
-!urxvt config
+Xft.dpi: 283
+Xft.hintstyle: hintfull
+Xft.hinting: true
+Xft.antialias: true
+Xft.rgba: rgb!urxvt config
+
 URxvt.scrollBar: false
 URxvt.secondaryScreen: 1
 URxvt.secondaryScroll: 0

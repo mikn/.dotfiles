@@ -10,3 +10,6 @@
 [submodule "devel/autobot"]
 	path = devel/autobot
 	url = git@github.com:mikn/autobot.git
+[submodule "devel/fonts"]
+	path = devel/fonts
+	url = https://github.com/powerline/fonts.git
