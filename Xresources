@@ -1,4 +1,4 @@
-Xft.dpi: 283
+Xft.dpi: 220
 Xft.hintstyle: hintfull
 Xft.hinting: true
 Xft.antialias: true
@@ -158,5 +158,3 @@ URxvt.matcher.button: 1
 
 ! Turn on/off ISO 14755 5.2 mode (default enabled).
 ! URxvt*iso14755_52: boolean
-
-
