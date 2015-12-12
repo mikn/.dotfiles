@@ -1,0 +1,34 @@
+#! /usr/bin/env python
+
+import os
+import re
+import sys
+import subprocess
+
+laptop_screen = 'eDP1'
+inch = 25.4
+normal_dpi = 96
+# TODO scaling factor
+# TODO issue commands to set screens
+# TODO write toggle switch
+
+xrandr = subprocess.Popen(['xrandr', '--prop', '--query'], stdout=subprocess.PIPE)
+xrandr_out, xrandr_err = xrandr.communicate()
+if xrandr.returncode:
+    sys.stdout.write('Problems with xrandr!\n Error message: %s' % xrandr_err)
+    sys.exit(1)
+
+matches = re.finditer(r'(?P<output>\w+)\s+connected '
+        '(?P<active>(primary )?[\d\w\+]+)?.*?(?:(?P<width>\d+)mm x (?P<height>\d+)mm)?.*\n'
+        '\s+EDID:\s+\n(P<EDID>(?P<EDID_PARTIAL>\t\t[0-9a-f]\n)(?&EDID_PARTIAL)+'
+        '\s+(?P<px_width>\d+)x(?P<px_height>\d+)', xrandr_out, flags=re.MULTILINE)
+
+screens = [m.groupdict() for m in matches]
+active = [m for m in screens if m['active']]
+print 'Found %d screens, where %d is active!' % (len(screens), len(active))
+for screen in screens:
+    dpi = round(int(screen['px_width'])/(int(screen['width'])/inch))
+    if abs(dpi-normal_dpi)/dpi < .2:
+        dpi = normal_dpi
+    data_tuple = (screen['output'], screen['px_width'], screen['px_height'], dpi)
+    print 'Screen %s has max res %sx%s and dpi %d' % data_tuple
