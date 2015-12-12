@@ -23,6 +23,8 @@ NeoBundle 'Shougo/vimproc.vim', {
 			\     'linux' : 'make',
 			\    },
 			\ }
+NeoBundle 'scrooloose/syntastic'
+NeoBundle 'dbakker/vim-projectroot'
 
 call neobundle#end()
 
@@ -113,9 +115,12 @@ let python_highlight_all = 1
 " unite.vim
 """
 " Unite
+function! Unite_ctrlp()
+	execute ':Unite  -buffer-name=files -start-insert buffer file_rec/async:'.ProjectRootGuess().'/'
+endfunction
 let g:unite_source_history_yank_enable = 1
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
-nnoremap <C-p> :<C-u>Unite -horizontal -buffer-name=files   -start-insert file_rec/async:!<cr>
+nnoremap <C-p> :call Unite_ctrlp()<cr>
 nnoremap <C-o> :<C-u>Unite -vertical -buffer-name=outline -start-insert outline<cr>
 nnoremap <C-b> :<C-u>Unite -horizontal -buffer-name=buffer  buffer<cr>
 nnoremap <leader>y :<C-u>Unite -no-split -buffer-name=yank history/yank<cr>
@@ -133,3 +138,21 @@ function! s:unite_settings()
 	imap <buffer> <C-j>   <Plug>(unite_select_next_line)
 	imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
 endfunction
+
+"""
+" vim-projectroot
+"""
+function! <SID>AutoProjectRootCD()
+	try
+		if &ft != 'help'
+			ProjectRootCD
+		endif
+	catch
+		" Silently ignore
+		" invalid buffers
+	endtry
+endfunction
+
+autocmd BufEnter * call <SID>AutoProjectRootCD()
+
+let g:rootmarkers = ['setup.py','.projectroot','.git','.hg','.svn','.bzr','_darcs','build.xml']
