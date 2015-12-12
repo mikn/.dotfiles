@@ -29,7 +29,7 @@ status.register("temp",
 # If you don't have a desktop notification demon yet, take a look at dunst:
 #   http://www.knopwob.org/dunst/
 status.register("battery",
-        format="{status}/{consumption:.2f}W {percentage:.2f}% {remaining:%E%hh:%Mm}",
+        format="{status}/{consumption:.2f}W {percentage:.0f}%[ {remaining:%E%hh:%Mm}]",
         alert=True,
         alert_percentage=5,
         status={
@@ -51,8 +51,8 @@ status.register("network",
 
 # Note: requires both netifaces and basiciw (for essid and quality)
 status.register("network",
-        interface="wlan0",
-        format_up="{essid} {quality:03.0f}%",)
+        interface="wlp2s0",
+        format_up="{essid:.16} {quality:.0f}%",)
 
 # Shows disk usage of /
 # Format:
@@ -67,15 +67,6 @@ status.register("disk",
 status.register("pulseaudio",
         format="♪{volume}",)
 
-# Shows mpd status
-# Format:
-# Cloud connected▶Reroute to Remain
-#status.register("mpd",
-#        format="{title}{status}{album}",
-#        status={
-#            "pause": "▷",
-#            "play": "▶",
-#            "stop": "◾",
-#            },)
+status.register("backlight", backlight="intel_backlight")
 
 status.run()
