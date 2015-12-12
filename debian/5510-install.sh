@@ -1,9 +1,6 @@
 #! /bin/bash
 set -e
 SOURCES << EOF
-deb http://httpredir.debian.org/debian/ wheezy main contrib non-free
-deb-src http://httpredir.debian.org/debian/ wheezy main contrib non-free
-
 deb http://httpredir.debian.org/debian/ testing main contrib non-free
 deb-src http://httpredir.debian.org/debian/ testing main contrib non-free
 
