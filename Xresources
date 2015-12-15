@@ -1,4 +1,10 @@
-Xft.dpi: 220
+rofi.background: #222
+rofi.foreground: #888
+rofi.bordercolor: #222
+rofi.highlightbg: #285577
+rofi.highlightfg: #fff
+
+*.dpi: 96
 Xft.hintstyle: hintfull
 Xft.hinting: true
 Xft.antialias: true
