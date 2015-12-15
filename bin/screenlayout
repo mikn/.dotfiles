@@ -19,16 +19,22 @@ if xrandr.returncode:
     sys.exit(1)
 
 matches = re.finditer(r'(?P<output>\w+)\s+connected '
-        '(?P<active>(primary )?[\d\w\+]+)?.*?(?:(?P<width>\d+)mm x (?P<height>\d+)mm)?.*\n'
-        '\s+EDID:\s+\n(P<EDID>(?P<EDID_PARTIAL>\t\t[0-9a-f]\n)(?&EDID_PARTIAL)+'
+        '(?P<active>(primary )?[\d\w\+]+)?.*?\n'
+        '(?P<EDID>\s+EDID:\s*\n(?:\s+[0-9a-f]+\n)+)'
+        '(.+\n)+?'
         '\s+(?P<px_width>\d+)x(?P<px_height>\d+)', xrandr_out, flags=re.MULTILINE)
+re_edid = re.compile(r'Detailed mode:.+?(?P<size>(?P<width>\d+) mm x (?P<height>\d+) mm)')
 
 screens = [m.groupdict() for m in matches]
 active = [m for m in screens if m['active']]
 print 'Found %d screens, where %d is active!' % (len(screens), len(active))
 for screen in screens:
+    edid = subprocess.Popen(['edid-decode'], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+    edid_out, _ = edid.communicate(input=screen['EDID'])
+    screen.update(re_edid.search(edid_out).groupdict())
+
     dpi = round(int(screen['px_width'])/(int(screen['width'])/inch))
-    if abs(dpi-normal_dpi)/dpi < .2:
-        dpi = normal_dpi
-    data_tuple = (screen['output'], screen['px_width'], screen['px_height'], dpi)
-    print 'Screen %s has max res %sx%s and dpi %d' % data_tuple
+    #if abs(dpi-normal_dpi)/dpi < .2:
+    #    dpi = normal_dpi
+    data_tuple = (screen['output'], screen['px_width'], screen['px_height'], screen['size'], dpi)
+    print 'Screen %s has max res %sx%s, size %s which gives a native dpi of %d' % data_tuple
