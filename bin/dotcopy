@@ -4,11 +4,14 @@ import errno
 import argparse
 home = os.path.expanduser('~')
 dotdir = os.path.join(home, '.dotfiles')
+
+
 class Args:
     debug = False
     dryrun = False
     force = False
 args = Args()
+
 
 def backup_file(src, dstdir):
     import shutil
@@ -21,10 +24,11 @@ def backup_file(src, dstdir):
     if not args.dryrun:
         shutil.move(src, dst)
 
+
 def symlink_file(src, dst):
     abspath = os.path.join(dotdir, src)
-    relpath = os.path.relpath(abspath, os.path.dirname(dst))
     dstfile = os.path.join(home, dst)
+    relpath = os.path.relpath(abspath, os.path.dirname(dstfile))
     if not os.path.islink(dstfile) and os.path.exists(dstfile):
         backup_file(dstfile, os.path.join(dotdir, '.backup'))
     if os.path.exists(dstfile) and not args.force:
@@ -33,7 +37,7 @@ def symlink_file(src, dst):
     if not args.dryrun:
         try:
             os.symlink(relpath, dstfile)
-        except OSError, e:
+        except OSError as e:
             if e.errno == errno.EEXIST:
                 os.remove(dstfile)
                 os.symlink(relpath, dstfile)

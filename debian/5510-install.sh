@@ -26,7 +26,7 @@ echo "$SOURCES" > /etc/apt/sources.list
 echo "$UNSTABLE_PREF" > /etc/apt/preferences.d/010-unstable
 echo "$NVIDIA_PREF" > /etc/apt/preferences.d/015-nvidia
 apt-get update
-apt-get install bumblebee-nvidia i965-va-driver firmware-iwlwifi xserver-xorg-video-intel xserver-xorg-video-nvidia xbacklight mesa-utils
+apt-get install bumblebee-nvidia i965-va-driver firmware-iwlwifi xserver-xorg-video-intel xserver-xorg-video-nvidia xbacklight mesa-utils thermald lm-sensors
 apt-get install tlp --no-install-recommends
 sed -i 's/"quiet"/"quiet 915.preliminary_hw_support=1 i915.enable_rc6=3"/' /etc/default/grub
 update-grub2

@@ -5,36 +5,54 @@ import re
 import sys
 import subprocess
 
-laptop_screen = 'eDP1'
+laptop_screen = ['eDP1', 'LVDS']
 inch = 25.4
-normal_dpi = 96
 # TODO scaling factor
 # TODO issue commands to set screens
 # TODO write toggle switch
+# TODO output dpi in a parseable manner
+# TODO switch to indicate startx vs DRM event
 
-xrandr = subprocess.Popen(['xrandr', '--prop', '--query'], stdout=subprocess.PIPE)
-xrandr_out, xrandr_err = xrandr.communicate()
-if xrandr.returncode:
-    sys.stdout.write('Problems with xrandr!\n Error message: %s' % xrandr_err)
-    sys.exit(1)
+def dpi_mangle(dpi):
+    if dpi <= 120:
+        return 96  # Normal DPI
+    if dpi > 120 and dpi <= 150:
+        return 120  # Normal DPI * 1.25
+    if dpi > 150 and dpi <= 190:
+        return 144  # Normal DPI * 1.5
+    if dpi > 190 and dpi <= 210:
+        return 168  # Normal DPI * 1.75
+    if dpi > 210:
+        return 192  # Normal DPI * 2
 
-matches = re.finditer(r'(?P<output>\w+)\s+connected '
-        '(?P<active>(primary )?[\d\w\+]+)?.*?\n'
-        '(?P<EDID>\s+EDID:\s*\n(?:\s+[0-9a-f]+\n)+)'
-        '(.+\n)+?'
-        '\s+(?P<px_width>\d+)x(?P<px_height>\d+)', xrandr_out, flags=re.MULTILINE)
-re_edid = re.compile(r'Detailed mode:.+?(?P<size>(?P<width>\d+) mm x (?P<height>\d+) mm)')
+def get_screens():
+    xrandr = subprocess.Popen(['xrandr', '--prop', '--query'], stdout=subprocess.PIPE)
+    xrandr_out, xrandr_err = xrandr.communicate()
+    if xrandr.returncode:
+        sys.stdout.write('Problems with xrandr!\n Error message: %s' % xrandr_err)
+        sys.exit(1)
 
-screens = [m.groupdict() for m in matches]
-active = [m for m in screens if m['active']]
-print 'Found %d screens, where %d is active!' % (len(screens), len(active))
-for screen in screens:
-    edid = subprocess.Popen(['edid-decode'], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-    edid_out, _ = edid.communicate(input=screen['EDID'])
-    screen.update(re_edid.search(edid_out).groupdict())
+    matches = re.finditer(r'(?P<output>\w+)\s+connected '
+            '(?P<active>(primary )?[\d\w\+]+)?.*?\n'
+            '(?P<EDID>\s+EDID:\s*\n(?:\s+[0-9a-f]+\n)+)'
+            '(.+\n)+?'
+            '\s+(?P<px_width>\d+)x(?P<px_height>\d+)', xrandr_out, flags=re.MULTILINE)
+    re_edid = re.compile(r'Detailed mode:.+?(?P<size>(?P<width>\d+) mm x (?P<height>\d+) mm)')
 
-    dpi = round(int(screen['px_width'])/(int(screen['width'])/inch))
-    #if abs(dpi-normal_dpi)/dpi < .2:
-    #    dpi = normal_dpi
-    data_tuple = (screen['output'], screen['px_width'], screen['px_height'], screen['size'], dpi)
-    print 'Screen %s has max res %sx%s, size %s which gives a native dpi of %d' % data_tuple
+    screens = [m.groupdict() for m in matches]
+    active = [m for m in screens if m['active']]
+    print 'Found %d screens, where %d is active!' % (len(screens), len(active))
+    for screen in screens:
+        edid = subprocess.Popen(['edid-decode'], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+        edid_out, _ = edid.communicate(input=screen['EDID'])
+        screen.update(re_edid.search(edid_out).groupdict())
+
+        dpi = int(screen['px_width'])/(int(screen['width'])/inch)
+        screen['real_dpi'] = dpi
+        screen['dpi'] = dpi_mangle(dpi)
+        print ('Screen %(output)s has max res %(px_width)sx%(px_height)s and '
+        'size %(size)s. This gives a native dpi of %(real_dpi)d and a '
+        'mangled dpi of %(dpi)s.' % screen)
+    return screens
+
+print get_screens()

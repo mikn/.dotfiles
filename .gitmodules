@@ -13,3 +13,48 @@
 [submodule "devel/fonts"]
 	path = devel/fonts
 	url = https://github.com/powerline/fonts.git
+[submodule "devel/playerctl"]
+	path = devel/playerctl
+	url = https://github.com/acrisci/playerctl.git
+[submodule "devel/sway"]
+	path = devel/sway
+	url = https://github.com/SirCmpwn/sway.git
+[submodule "devel/wlc"]
+	path = devel/wlc
+	url = https://github.com/Cloudef/wlc.git
+[submodule "devel/nerd-fonts"]
+	path = devel/nerd-fonts
+	url = https://github.com/ryanoasis/nerd-fonts
+[submodule "devel/neovim"]
+	path = devel/neovim
+	url = https://github.com/neovim/neovim.git
+[submodule "devel/vpp"]
+	path = devel/vpp
+	url = ssh://mikn@gerrit.fd.io:29418/vpp.git
+[submodule "devel/wrk"]
+	path = devel/wrk
+	url = https://github.com/wg/wrk.git
+[submodule "devel/Awesome-CV"]
+	path = devel/Awesome-CV
+	url = https://github.com/posquit0/Awesome-CV.git
+[submodule "devel/termite"]
+	path = devel/termite
+	url = https://github.com/thestinger/termite.git
+[submodule "devel/phabricator"]
+	path = devel/phabricator
+	url = https://github.com/phacility/phabricator.git
+[submodule "devel/xv_coding_challenge_mikael"]
+	path = devel/xv_coding_challenge_mikael
+	url = git@github.com:xvpn/xv_coding_challenge_mikael.git
+[submodule "devel/base16-xresources"]
+	path = devel/base16-xresources
+	url = https://github.com/chriskempson/base16-xresources.git
+[submodule "devel/polybar"]
+	path = devel/polybar
+	url = https://github.com/jaagr/polybar
+[submodule "devel/siji"]
+	path = devel/siji
+	url = https://github.com/stark/siji
+[submodule "devel/rust"]
+	path = devel/rust
+	url = https://github.com/rust-lang/rust.git
