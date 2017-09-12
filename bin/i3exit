@@ -1,6 +1,6 @@
 #!/bin/sh
 lock() {
-    i3lock -i ~/Pictures/wallpapers/03966_upondescent_3840x2160.png
+    loginctl lock-session
 }
 
 case "$1" in

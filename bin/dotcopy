@@ -22,6 +22,7 @@ def backup_file(src, dstdir):
     dst = os.path.join(dstdir, os.path.basename(src))
     print('Backing up file from %s to %s!' % (src, dst))
     if not args.dryrun:
+        os.mkdir(dstdir)
         shutil.move(src, dst)
 
 

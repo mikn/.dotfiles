@@ -7,11 +7,16 @@ status = Status(standalone=True)
 # Tue 30 Jul 11:59:46 PM KW31
 #                          ^-- calendar week
 status.register("clock", format="%a %-d %b %X KW%V",)
-status.register("clock", format=("AT %X", "Asia/Hong_Kong"),)
+status.register("clock", format=("SE %X", "Europe/Stockholm"),)
 
 # Shows the average load of the last minute and the last 5 minutes
 # (the default value for format is used)
 status.register("load")
+
+status.register("shell",
+                command="xkblayout-state print 'KB: %s'| awk '{print toupper($0)}'",
+                on_leftclick="xkblayout-state set +1"
+)
 
 # Shows your CPU temperature, if you have a Intel CPU
 # status.register("temp", format="{temp:.0f}°C",)
@@ -59,7 +64,7 @@ status.register("network",
 status.register("network",
                 interface="wlp2s0",
                 color_up="#538947",
-                format_up="{v4cidr} {essid:.16} {quality_bar}",)
+                format_up="{v4cidr} {essid:.16} {quality}%",)
 
 # Shows disk usage of /
 # Format:

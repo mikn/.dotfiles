@@ -1,0 +1,16 @@
+TODO:
+- install all software possible as user software
+- Write script for installing salt-minion
+- capture all dependencies for a functioning setup, this includes:
+  - termite
+  - rofi
+  - i3pystatus
+  - nerd-fonts
+  - yubikey tools
+  - direnv
+  - pyenv
+- set up fonts
+- Set up python3.6
+- set up qemu-kvm virtualisation
+- set up screen management
+- set up docker

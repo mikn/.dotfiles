@@ -25,8 +25,13 @@ if [ -d "$HOME/.cargo/bin" ] ; then
 	PATH="$HOME/.cargo/bin:$PATH"
 fi
 
+if [ -d "$HOME/.rbenv/bin" ] ; then
+	PATH="$HOME/.rbenv/bin:$PATH"
+fi
+
 export PYTHONSTARTUP="$HOME/.pythonrc"
 export GOPATH="$HOME/gocode"
+export ANSIBLE_ROOT="$HOME/xv/sysadmin/Lin/systembuild/parallel-management"
 
 if [ "$TERM" = "linux" ]; then
 	. $HOME/bin/base16-oceanicnext.dark.sh

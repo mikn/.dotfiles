@@ -58,3 +58,39 @@
 [submodule "devel/rust"]
 	path = devel/rust
 	url = https://github.com/rust-lang/rust.git
+[submodule "devel/i3lock-fancy"]
+	path = devel/i3lock-fancy
+	url = https://github.com/meskarune/i3lock-fancy.git
+[submodule "devel/rbenv"]
+	path = devel/rbenv
+	url = https://github.com/rbenv/rbenv.git
+[submodule "devel/xkblayout-state"]
+	path = devel/xkblayout-state
+	url = https://github.com/nonpop/xkblayout-state.git
+[submodule "devel/hub"]
+	path = devel/hub
+	url = https://github.com/github/hub.git
+[submodule "config/nvim/dein.vim"]
+	path = config/nvim/dein.vim
+	url = https://github.com/Shougo/dein.vim.git
+[submodule "devel/vte-ng"]
+	path = devel/vte-ng
+	url = https://github.com/thestinger/vte-ng.git
+[submodule "devel/base16-termite"]
+	path = devel/base16-termite
+	url = https://github.com/khamer/base16-termite.git
+[submodule "devel/base16-i3"]
+	path = devel/base16-i3
+	url = https://github.com/khamer/base16-i3.git
+[submodule "devel/python-rofi"]
+	path = devel/python-rofi
+	url = https://github.com/bcbnz/python-rofi.git
+[submodule "devel/python-language-server"]
+	path = devel/python-language-server
+	url = git@github.com:mikn/python-language-server.git
+[submodule "devel/i3status-rust"]
+	path = devel/i3status-rust
+	url = git@github.com:greshake/i3status-rust.git
+[submodule "devel/ansible"]
+	path = devel/ansible
+	url = git@github.com:ansible/ansible.git

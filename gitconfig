@@ -1,7 +1,7 @@
 # Global Config
 [user]
     name = "Mikael Knutsson"
-    email = "mikael.knutsson@king.com"
+    email = "mikael.k@expressvpn.com"
     #signingkey = **Your GPG ID**
 
 [branch "master"]
@@ -50,7 +50,7 @@
     prompt = false
 
 [merge]
-    tool = vimdiff
+	tool = vimdiff3
 
 [alias]
     # branch

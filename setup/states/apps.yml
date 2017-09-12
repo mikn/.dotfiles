@@ -1,0 +1,57 @@
+base_utils:
+  pkg.latest:
+    - pkgs:
+      - arpon
+      - bash-completion
+      - btrfs-progs
+      - build-essential
+      - cmake
+      - curl
+      - debsecan
+      - debsums
+      - dkms
+      - exfat-fuse
+      - exfat-utils
+      - ffmpeg
+      - firmware-linux-free
+      - firmware-linux-nonfree
+      - firmware-misc-nonfree
+      - firmware-realtek
+      - fish
+      - git
+      - golang-go
+      - gzip
+      - htop
+      - intel-microcode
+      - ipython3
+      - jq
+      - kpcli
+      - unzip
+      - unrar
+
+desktop:
+  pkg.latest:
+    - pkgs:
+      - compton
+      - darktable
+      - dunst
+      - edid-decode
+      - feh
+      - gimp
+      - gnome-keyring
+      - i3
+      - mpv
+      - udiskie
+      - zathura
+
+laptop:
+  pkg.latest:
+    - pkgs:
+      - i965-va-driver
+      - tlp
+
+experimental:
+  pkg.latest:
+    - pkgs:
+      - linux-image
+      - python3.6

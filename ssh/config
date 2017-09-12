@@ -2,10 +2,6 @@ Host *
   ControlMaster auto
   ControlPath /tmp/%r@%h:%p
 
-Host *.midasplayer.com
-    User mikaelk
-    IdentityFile ~/.ssh/id_king
-
 Host github.com
     User git
     IdentityFile ~/.ssh/id_github

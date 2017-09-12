@@ -1,0 +1,1 @@
+/home/mikael/.config/fisherman/pyenv/completions/pyenv.fish

@@ -1,0 +1,5 @@
+#! /bin/bash
+DB=$1
+KDB=($(ls $HOME/keepass/$DB.kdb{x,} 2>/dev/null | xargs basename))
+KDB=${KDB[@]//*.lock}
+(ps aux | grep k[p]_$DB) || termite --title=kp_$DB -e "/bin/bash -c 'kpcli --pwfile <(secret-tool lookup keepass $DB) --kdb $HOME/keepass/$KDB --key $HOME/keepass/$DB.key'"

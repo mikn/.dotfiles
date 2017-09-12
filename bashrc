@@ -109,14 +109,4 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# Base16 Shell
-#BASE16_SHELL="$HOME/devel/base16-shell/base16-default.dark.sh"
-#[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
-BASE16_SHELL=$HOME/devel/base16-shell/
-[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
-
-PATH="/home/mikaelk/perl5/bin${PATH+:}${PATH}"; export PATH;
-PERL5LIB="/home/mikaelk/perl5/lib/perl5${PERL5LIB+:}${PERL5LIB}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="/home/mikaelk/perl5${PERL_LOCAL_LIB_ROOT+:}${PERL_LOCAL_LIB_ROOT}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"/home/mikaelk/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/home/mikaelk/perl5"; export PERL_MM_OPT;
+alias git=hub
