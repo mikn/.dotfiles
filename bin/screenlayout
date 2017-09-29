@@ -1,6 +1,5 @@
-#! /usr/bin/env python
+#! /usr/bin/python2
 
-import os
 import re
 import sys
 import subprocess
@@ -12,6 +11,7 @@ inch = 25.4
 # TODO output dpi in a parseable manner
 # TODO switch to indicate startx vs DRM event
 
+
 def dpi_mangle(dpi):
     if dpi <= 150:
         return 96  # Normal DPI
@@ -22,9 +22,11 @@ def dpi_mangle(dpi):
     if dpi > 210:
         return 192  # Normal DPI * 2
 
+
 def get_screens():
     xrandr = subprocess.Popen(['xrandr', '--prop', '--query'], stdout=subprocess.PIPE)
     xrandr_out, xrandr_err = xrandr.communicate()
+    #xrandr_out = xrandr_out.decode('utf-8')
     if xrandr.returncode:
         sys.stdout.write('Problems with xrandr!\n Error message: %s' % xrandr_err)
         sys.exit(1)
@@ -40,8 +42,8 @@ def get_screens():
     screens = [m.groupdict() for m in matches]
     active = [m for m in screens if m['active']]
     disconnected = [m.groupdict() for m in disconnected_matches]
-    print 'Found %d screens, where %d is active and %d is disconnected!' % (
-        len(screens), len(active), len(disconnected))
+    print('Found %d screens, where %d is active and %d is disconnected!' % (
+        len(screens), len(active), len(disconnected)))
     for screen in screens:
         edid = subprocess.Popen(['edid-decode'], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
         edid_out, _ = edid.communicate(input=screen['EDID'])
@@ -54,7 +56,7 @@ def get_screens():
             dpi = 96
         screen['real_dpi'] = dpi
         screen['dpi'] = dpi_mangle(dpi)
-        print ('Screen %(output)s has max res %(px_width)sx%(px_height)s and '
+        print('Screen %(output)s has max res %(px_width)sx%(px_height)s and '
         'size %(size)s. This gives a native dpi of %(real_dpi)d and a '
         'mangled dpi of %(dpi)s.' % screen)
     return screens, disconnected

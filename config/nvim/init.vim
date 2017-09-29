@@ -83,7 +83,7 @@ endif
 """
 let deps = ['python-language-server', 'mistune', 'psutil', 'setproctitle']
 let g:python_support_python2_requirements = get(g:,'python_support_python2_requirements',[]) + deps
-let g:python_support_python3_requirements = get(g:,'python_support_python3_requirements',[]) + deps
+let g:python_support_python3_requirements = get(g:,'python_support_python3_requirements',['pyls-mypy']) + deps
 
 """
 " base16-vim

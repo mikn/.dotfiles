@@ -1,3 +1,15 @@
+/etc/apt/sources.list:
+  file.managed:
+    - source: salt://files/sources.list
+
+/etc/apt/preferences.d/010-unstable:
+  file.managed:
+    - source: salt://files/010-unstable
+
+/etc/modprobe.d/i915.conf:
+  file.managed:
+    - source: salt://files/i915.conf
+
 base_utils:
   pkg.latest:
     - pkgs:
@@ -21,6 +33,7 @@ base_utils:
       - git
       - golang-go
       - gzip
+      - gpg
       - htop
       - intel-microcode
       - ipython3
@@ -49,6 +62,8 @@ laptop:
     - pkgs:
       - i965-va-driver
       - tlp
+      - nvidia-driver
+      - bumblebee-nvidia
 
 experimental:
   pkg.latest:
