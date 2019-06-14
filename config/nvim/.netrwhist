@@ -1,0 +1,5 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_1='/home/mikael/github/opendistro_for_elasticsearch-alpine'
+let g:netrw_dirhist_2='/home/mikael/github/opendistro_for_elasticsearch-alpine/security-ssl'
+let g:netrw_dirhist_3='/home/mikael/.config/sway'

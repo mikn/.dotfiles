@@ -41,6 +41,20 @@ base_utils:
       - kpcli
       - unzip
       - unrar
+      - apt-file
+      - pkg-config
+      - autoconf
+      - wicd-curses
+      - net-tools
+
+termite:
+  pkg.latest:
+    - libtool-bin
+    - gtk-doc-tools
+    - intltool
+    - libgirepository1.0-dev
+    - valac
+    - gperf
 
 desktop:
   pkg.latest:
@@ -56,6 +70,10 @@ desktop:
       - mpv
       - udiskie
       - zathura
+      - xinit
+      - xserver-xorg-video-all
+      - rofi
+      - libxml2-utils
 
 laptop:
   pkg.latest:
@@ -64,6 +82,7 @@ laptop:
       - tlp
       - nvidia-driver
       - bumblebee-nvidia
+      - xserver-xorg-input-synaptics
 
 experimental:
   pkg.latest:

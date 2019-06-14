@@ -94,3 +94,93 @@
 [submodule "devel/ansible"]
 	path = devel/ansible
 	url = git@github.com:ansible/ansible.git
+[submodule "pyenv"]
+	path = pyenv
+	url = https://github.com/pyenv/pyenv
+[submodule "devel/charts"]
+	path = devel/charts
+	url = https://github.com/kubernetes/charts.git
+[submodule "devel/kops"]
+	path = devel/kops
+	url = https://github.com/kubernetes/kops.git
+[submodule "devel/fluent-bit"]
+	path = devel/fluent-bit
+	url = git@github.com:fluent/fluent-bit.git
+[submodule "devel/fluent-bit-docs"]
+	path = devel/fluent-bit-docs
+	url = git@github.com:fluent/fluent-bit-docs.git
+[submodule "devel/fluent-bit-docker-image"]
+	path = devel/fluent-bit-docker-image
+	url = git@github.com:fluent/fluent-bit-docker-image.git
+[submodule "devel/elasticsearch-prometheus-exporter"]
+	path = devel/elasticsearch-prometheus-exporter
+	url = git@github.com:vvanholl/elasticsearch-prometheus-exporter.git
+[submodule "devel/charts.gitlab.io"]
+	path = devel/charts.gitlab.io
+	url = https://gitlab.com/charts/charts.gitlab.io.git
+[submodule "devel/elasticsearch-curator"]
+	path = devel/elasticsearch-curator
+	url = git@github.com:mikn/curator.git
+[submodule "devel/search-guard"]
+	path = devel/search-guard
+	url = git@github.com:mikn/search-guard.git
+[submodule "config/fish/fish-kubectl-completions"]
+	path = config/fish/fish-kubectl-completions
+	url = https://github.com/evanlucas/fish-kubectl-completions
+[submodule "devel/docker-kibana-alpine"]
+	path = devel/docker-kibana-alpine
+	url = git@github.com:mikn/docker-kibana-alpine.git
+[submodule "devel/hindsight"]
+	path = devel/hindsight
+	url = git@github.com:mozilla-services/hindsight.git
+[submodule "devel/lua_sandbox"]
+	path = devel/lua_sandbox
+	url = git@github.com:mozilla-services/lua_sandbox.git
+[submodule "devel/lua_sandbox_extensions"]
+	path = devel/lua_sandbox_extensions
+	url = git@github.com:mozilla-services/lua_sandbox_extensions.git
+[submodule "devel/wrk2"]
+	path = devel/wrk2
+	url = git@github.com:giltene/wrk2.git
+[submodule "devel/wlroots"]
+	path = devel/wlroots
+	url = git@github.com:swaywm/wlroots
+[submodule "devel/chromium"]
+	path = devel/chromium
+	url = git@github.com:Igalia/chromium.git
+[submodule "devel/gn"]
+	path = devel/gn
+	url = https://gn.googlesource.com/gn
+[submodule "devel/base16-manager"]
+	path = devel/base16-manager
+	url = git@github.com:AuditeMarlow/base16-manager
+[submodule "devel/grim"]
+	path = devel/grim
+	url = git@github.com:emersion/grim.git
+[submodule "devel/slurp"]
+	path = devel/slurp
+	url = git@github.com:emersion/slurp.git
+[submodule "devel/wl-clipboard"]
+	path = devel/wl-clipboard
+	url = git@github.com:bugaevc/wl-clipboard.git
+[submodule "devel/scdoc"]
+	path = devel/scdoc
+	url = https://git.sr.ht/~sircmpwn/scdoc
+[submodule "devel/argo-helm"]
+	path = devel/argo-helm
+	url = git@github.com:argoproj/argo-helm.git
+[submodule "devel/cloudfront-auth"]
+	path = devel/cloudfront-auth
+	url = git@github.com:Widen/cloudfront-auth.git
+[submodule "devel/docker-elasticsearch-alpine"]
+	path = devel/docker-elasticsearch-alpine
+	url = git@github.com:blacktop/docker-elasticsearch-alpine.git
+[submodule "devel/tcnative-docker"]
+	path = devel/tcnative-docker
+	url = git@github.com:floragunncom/tcnative-docker.git
+[submodule "devel/eclipse.jdt.ls"]
+	path = devel/eclipse.jdt.ls
+	url = git@github.com:eclipse/eclipse.jdt.ls.git
+[submodule "devel/wf-recorder"]
+	path = devel/wf-recorder
+	url = git@github.com:ammen99/wf-recorder

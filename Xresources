@@ -4,6 +4,7 @@ rofi.foreground: #888
 rofi.bordercolor: #222
 rofi.highlightbg: #285577
 rofi.highlightfg: #fff
+rofi.dpi: 96
 
 Xft.hintstyle: hintfull
 Xft.hinting: true

@@ -1,0 +1,91 @@
+[options]
+#allow_bold = true
+#audible_bell = false
+#clickable_url = true
+#dynamic_title = true
+font = Knack Nerd Font 9
+#fullscreen = true
+#geometry = 640x480
+#icon_name = terminal
+#mouse_autohide = false
+#scroll_on_output = false
+#scroll_on_keystroke = true
+# Length of the scrollback buffer, 0 disabled the scrollback buffer
+# and setting it to a negative value means "infinite scrollback"
+scrollback_lines = 10000
+#search_wrap = true
+#urgent_on_bell = true
+
+# $BROWSER is used by default if set, with xdg-open as a fallback
+#browser = xdg-open
+
+# Hide links that are no longer valid in url select overlay mode
+#filter_unmatched_urls = true
+
+# Emit escape sequences for extra modified keys
+#modify_other_keys = false
+
+# set size hints for the window
+#size_hints = false
+
+# "off", "left" or "right"
+#scrollbar = off
+
+[hints]
+
+#padding = 2
+#border = #3f3f3f
+#border_width = 0.5
+#roundness = 2.0
+
+foreground          = #68615e
+
+[colors]
+# Base16 Twilight
+# Author: David Hart (https://github.com/hartbit)
+
+foreground          = #a7a7a7
+foreground_bold     = #c3c3c3
+cursor              = #c3c3c3
+cursor_foreground   = #1e1e1e
+background          = rgba(30, 30, 30)
+
+# 16 color space
+
+# Black, Gray, Silver, White
+color0  = #1e1e1e
+color8  = #5f5a60
+color7  = #a7a7a7
+color15 = #ffffff
+
+# Red
+color1  = #cf6a4c
+color9  = #cf6a4c
+
+# Green
+color2  = #8f9d6a
+color10 = #8f9d6a
+
+# Yellow
+color3  = #f9ee98
+color11 = #f9ee98
+
+# Blue
+color4  = #7587a6
+color12 = #7587a6
+
+# Purple
+color5  = #9b859d
+color13 = #9b859d
+
+# Teal
+color6  = #afc4db
+color14 = #afc4db
+
+# Extra colors
+color16 = #cda869
+color17 = #9b703f
+color18 = #323537
+color19 = #464b50
+color20 = #838184
+color21 = #c3c3c3

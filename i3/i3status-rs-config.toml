@@ -4,12 +4,27 @@ icons = "awesome"
 name = "solarized-dark"
 [theme.overrides]
 #separator = ""
-separator = ""
+idle_bg = "#f1efee"
+idle_fg = "#68615e"
+info_bg = "#3d97b8"
+info_fg = "#f1efee"
+good_bg = "#7b9726"
+good_fg = "#f1efee"
+warning_bg = "#c38418"
+warning_fg = "#f1efee"
+critical_bg = "#f22c40"
+critical_fg = "#f1efee"
 
 [[block]]
 block = "music"
 player = "spotify"
 buttons = ["play", "next"]
+
+[[block]]
+block = "sound"
+
+[[block]]
+block = "backlight"
 
 [[block]]
 block = "disk_space"
@@ -23,13 +38,10 @@ interval = 20
 block = "net"
 device = "wlp2s0"
 interval = 5
-graph = false
-
-[[block]]
-block = "xrandr"
-interval = 2
-icons = true
-resolution = true
+ssid = true
+ip = true
+speed_up = false
+speed_down = false
 
 [[block]]
 block = "memory"
@@ -47,13 +59,22 @@ interval = 1
 format = "{1m}"
 
 [[block]]
-block = "sound"
+block = "temperature"
 
 [[block]]
 block = "battery"
-interval = 10
+interval = 5
+upower = true
+format = "{power}W/h {percentage}% {time}"
+
 
 [[block]]
 block = "time"
 interval = 60
-format = "%a %d/%m %R"
+format = "EU %a %d/%m %R"
+timezone = "Europe/Stockholm"
+
+[[block]]
+block = "time"
+interval = 1
+format = "LOC %F %T"

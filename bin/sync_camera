@@ -1,10 +1,10 @@
 #! /bin/bash
-#SRC=/media/mikael/1208-8000/DCIM/
-#DST=~/Pictures/X-A3
-#EXT=RAF
-SRC=/media/mikael/0123-4567/DCIM/
-DST=~/Pictures/NXMini
-EXT=SRW
+SRC=/media/mikael/1208-8000/DCIM/
+DST=~/Pictures/X-A3
+EXT=RAF
+#SRC=/media/mikael/0123-4567/DCIM/
+#DST=~/Pictures/NXMini
+#EXT=SRW
 CONVERTER="wine ~/.wine/drive_c/Program\ Files/Adobe/Adobe\ DNG\ Converter.exe -fl -d $DST"
 
 for src in $SRC/*/*.$EXT; do

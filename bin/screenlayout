@@ -84,9 +84,9 @@ for screen in deactivate:
 print(cmd)
 compton = ['compton', '-bC', '--backend', 'glx', '--paint-on-overlay',
            '--unredir-if-possible', '--glx-no-stencil', '--glx-no-rebind-pixmap']
-xrandr = subprocess.Popen(cmd, stdout=subprocess.PIPE)
-xrandr_out, xrandr_err = xrandr.communicate()
-subprocess.call(['nitrogen', '--restore'])
+#xrandr = subprocess.Popen(cmd, stdout=subprocess.PIPE)
+#xrandr_out, xrandr_err = xrandr.communicate()
+#subprocess.call(['nitrogen', '--restore'])
 if xrandr.returncode:
     sys.stdout.write('Problems with xrandr!\n Error message: %s' % xrandr_err)
     sys.exit(1)

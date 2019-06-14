@@ -1,0 +1,91 @@
+[options]
+#allow_bold = true
+#audible_bell = false
+#clickable_url = true
+#dynamic_title = true
+font = Knack Nerd Font 9
+#fullscreen = true
+#geometry = 640x480
+#icon_name = terminal
+#mouse_autohide = false
+#scroll_on_output = false
+#scroll_on_keystroke = true
+# Length of the scrollback buffer, 0 disabled the scrollback buffer
+# and setting it to a negative value means "infinite scrollback"
+scrollback_lines = 10000
+#search_wrap = true
+#urgent_on_bell = true
+
+# $BROWSER is used by default if set, with xdg-open as a fallback
+#browser = xdg-open
+
+# Hide links that are no longer valid in url select overlay mode
+#filter_unmatched_urls = true
+
+# Emit escape sequences for extra modified keys
+#modify_other_keys = false
+
+# set size hints for the window
+#size_hints = false
+
+# "off", "left" or "right"
+#scrollbar = off
+
+[hints]
+
+#padding = 2
+#border = #3f3f3f
+#border_width = 0.5
+#roundness = 2.0
+
+foreground          = #a7a7a7
+
+[colors]
+# Base16 Atelier Forest Light
+# Author: Bram de Haan (http://atelierbramdehaan.nl)
+
+foreground          = #68615e
+foreground_bold     = #2c2421
+cursor              = #2c2421
+cursor_foreground   = #f1efee
+background          = rgba(241, 239, 238)
+
+# 16 color space
+
+# Black, Gray, Silver, White
+color0  = #f1efee
+color8  = #9c9491
+color7  = #68615e
+color15 = #1b1918
+
+# Red
+color1  = #f22c40
+color9  = #f22c40
+
+# Green
+color2  = #7b9726
+color10 = #7b9726
+
+# Yellow
+color3  = #c38418
+color11 = #c38418
+
+# Blue
+color4  = #407ee7
+color12 = #407ee7
+
+# Purple
+color5  = #6666ea
+color13 = #6666ea
+
+# Teal
+color6  = #3d97b8
+color14 = #3d97b8
+
+# Extra colors
+color16 = #df5320
+color17 = #c33ff3
+color18 = #e6e2e0
+color19 = #a8a19f
+color20 = #766e6b
+color21 = #2c2421
