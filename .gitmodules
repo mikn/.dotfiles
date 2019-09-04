@@ -91,9 +91,6 @@
 [submodule "devel/i3status-rust"]
 	path = devel/i3status-rust
 	url = git@github.com:greshake/i3status-rust.git
-[submodule "devel/ansible"]
-	path = devel/ansible
-	url = git@github.com:ansible/ansible.git
 [submodule "pyenv"]
 	path = pyenv
 	url = https://github.com/pyenv/pyenv
@@ -145,9 +142,6 @@
 [submodule "devel/wlroots"]
 	path = devel/wlroots
 	url = git@github.com:swaywm/wlroots
-[submodule "devel/chromium"]
-	path = devel/chromium
-	url = git@github.com:Igalia/chromium.git
 [submodule "devel/gn"]
 	path = devel/gn
 	url = https://gn.googlesource.com/gn
@@ -184,3 +178,12 @@
 [submodule "devel/wf-recorder"]
 	path = devel/wf-recorder
 	url = git@github.com:ammen99/wf-recorder
+[submodule "devel/alacritty"]
+	path = devel/alacritty
+	url = git@github.com:jwilm/alacritty.git
+[submodule "devel/greddis"]
+	path = devel/greddis
+	url = git@github.com:mikn/greddis.git
+[submodule "devel/netng"]
+	path = devel/netng
+	url = git@github.com:mikn/netng.git

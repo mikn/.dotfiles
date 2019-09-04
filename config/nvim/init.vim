@@ -89,7 +89,7 @@ endif
 """
 " python-support.nvim
 """
-let deps = ['python-language-server', 'mistune', 'psutil', 'setproctitle']
+let deps = ['pynvim', 'python-language-server', 'mistune', 'psutil', 'setproctitle']
 let g:python_support_python2_requirements = get(g:,'python_support_python2_requirements',[]) + deps
 let g:python_support_python3_requirements = get(g:,'python_support_python3_requirements',['pyls-mypy']) + deps
 
@@ -202,7 +202,7 @@ set formatexpr=LanguageClient_textDocument_rangeFormatting_sync()
 let g:LanguageClient_autoStart = 1
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
-    \ 'go': ['bingo', '--format-style', 'goimports', '--diagnostics-style', 'instant', '--enhance-signature-help', '--logfile', '/home/mikael/tmp/bingo.log'],
+    \ 'go': ['bingo', '--format-style', 'goimports', '--diagnostics-style', 'instant', '--enhance-signature-help', '--logfile', '/home/mikn/tmp/bingo.log'],
     \ 'python': ['pyls', '--log-file', '/tmp/pyls.log'],
     \ 'java': ['java', '-Declipse.application=org.eclipse.jdt.ls.core.id1', '-Dosgi.bundles.defaultStartLevel=4', '-Declipse.product=org.eclipse.jdt.ls.core.product', '-Dlog.level=ALL', '-noverify', '-Xmx1G', '-jar', '/home/mikael/devel/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/plugins/org.eclipse.equinox.launcher_1.5.300.v20190213-1655.jar', '-configuration', '/home/mikael/devel/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/config_linux', '-data', projectroot#guess(), '--add-modules=ALL-SYSTEM', '--add-opens', 'java.base/java.util=ALL-UNNAMED', '--add-opens', 'java.base/java.lang=ALL-UNNAMED'],
     \ }

@@ -3,4 +3,4 @@ if test (tty) = '/dev/tty2' -a $USER != root -a ! -e /tmp/.X0-lock
     exit
 end
 eval (direnv hook fish)
-status --is-interactive; and source (pyenv init -|psub) and source (pyenv virtualenv-init -|psub)
+status --is-interactive; and source (pyenv init -|psub)

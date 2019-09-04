@@ -38,3 +38,5 @@ if [ "$TERM" = "linux" ]; then
 fi
 
 test `tty` = /dev/tty2 -a $USER != root -a ! -e /tmp/.X0-lock && startx && exit
+
+export PATH="$HOME/.cargo/bin:$PATH"

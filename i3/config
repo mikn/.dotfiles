@@ -51,7 +51,7 @@ font pango:Knack Nerd Font 9
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec termite
+bindsym $mod+Return exec alacritty
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -215,7 +215,4 @@ workspace 7 output HDMI1
 workspace 8 output DP2
 workspace 9 output HDMI1
 workspace 10 output DP2
-
-for_window [title="kp_"] move window to scratchpad, scratchpad show
-bindsym $mod+t exec ~/bin/kp lalamove; [title="kp_lalamove"] scratchpad show
-bindsym $mod+b exec ~/bin/rofi-ssh
+indsym $mod+b exec ~/bin/rofi-ssh

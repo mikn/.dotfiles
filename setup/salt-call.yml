@@ -1,7 +1,0 @@
-file_client: local
-file_roots:
-  base:
-    - ~/.setup/states/
-pillar_roots:
-  base:
-    - ~/.setup/pillar/
