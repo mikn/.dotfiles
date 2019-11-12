@@ -1,0 +1,7 @@
+---
+
+- name: configure wifi
+  import_tasks: wifi.yml
+
+- name: backlight
+  import_tasks: backlight.yml

@@ -187,3 +187,15 @@
 [submodule "devel/netng"]
 	path = devel/netng
 	url = git@github.com:mikn/netng.git
+[submodule "devel/mako"]
+	path = devel/mako
+	url = git@github.com:emersion/mako.git
+[submodule "devel/go-tools"]
+	path = devel/go-tools
+	url = https://github.com/saibing/tools.git
+[submodule "devel/pulseaudio-modules-bt"]
+	path = devel/pulseaudio-modules-bt
+	url = https://github.com/EHfive/pulseaudio-modules-bt.git
+[submodule "devel/ldacBT"]
+	path = devel/ldacBT
+	url = https://github.com/EHfive/ldacBT.git

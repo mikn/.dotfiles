@@ -131,6 +131,7 @@
     rea = remote add
     rex = remote rm
     rem = remote rename
+    rmb = "!f() { git branch --merged | grep -v "master" | while read i; do git branch -d $i; done; }; f"
 
 [push]
     default = matching

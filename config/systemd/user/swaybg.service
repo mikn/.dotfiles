@@ -1,0 +1,11 @@
+[Unit]
+Description=Background manager for Wayland
+Documentation=man:swaybg(1)
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/swaybg -i %h/Pictures/04199_lonelyisland_1920x1080.jpg -m stretch
+
+[Install]
+WantedBy=sway-session.target

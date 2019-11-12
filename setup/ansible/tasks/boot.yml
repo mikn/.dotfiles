@@ -1,0 +1,63 @@
+---
+
+- name: configure grub
+  copy:
+    src: default-grub
+    dest: /etc/default/grub
+  become: yes
+  notify: rebuild grub
+
+- name: initramfs enabled modules
+  copy:
+    content: |
+      intel_agp
+      drm
+      i915 modeset=1
+    dest: /etc/initramfs-tools/modules
+  become: yes
+  notify: "update initramfs"
+
+- name: post-install update-efistub
+  copy:
+    content: |
+      #!/bin/sh
+      cp /vmlinuz /boot/efi/EFI/debian/
+    dest: /etc/kernel/postinst.d/zz-update-efistub
+    mode: "755"
+  become: yes
+
+- name: ensure post-update.d folder exists
+  file:
+    state: directory
+    dest: /etc/initramfs/post-update.d
+  become: yes
+
+- name: post-update efistub
+  copy:
+    content: |
+      #!/bin/sh
+      cp /initrd.img /boot/efi/EFI/debian/
+    dest: /etc/initramfs/post-update.d/zz-update-efistub
+    mode: "755"
+  become: yes
+
+- name: install plymouth config
+  copy:
+    content: |
+      [Daemon]
+      Theme=debian-theme
+      ShowDelay=0
+    dest: /etc/plymouth/plymouthd.conf
+  become: yes
+
+- name: override plymouth-quit service
+  copy:
+    src: plymouth-quit.service
+    dest: /etc/systemd/system/plymouth-quit.service
+  become: yes
+
+- name: install plymouth-deactivate service
+  copy:
+    src: plymouth-deactivate.service
+    dest: /etc/systemd/system/plymouth-deactivate.service
+  become: yes

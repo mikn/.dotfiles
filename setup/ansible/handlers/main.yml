@@ -1,0 +1,13 @@
+---
+
+- name: reload udev rules
+  shell: udevadm trigger
+  become: yes
+
+- name: rebuild grub
+  shell: update-grub
+  become: yes
+
+- name: update initramfs
+  shell: update-initramfs
+  become: yes

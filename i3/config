@@ -215,4 +215,4 @@ workspace 7 output HDMI1
 workspace 8 output DP2
 workspace 9 output HDMI1
 workspace 10 output DP2
-indsym $mod+b exec ~/bin/rofi-ssh
+bindsym $mod+b exec ~/bin/rofi-ssh

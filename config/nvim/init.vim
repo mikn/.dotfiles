@@ -24,6 +24,7 @@ if dein#load_state('~/.local/share/dein')
     call dein#add('tpope/vim-surround')
     call dein#add('AndrewRadev/splitjoin.vim')
     call dein#add('autozimu/LanguageClient-neovim', {'rev': 'next', 'build': 'bash install.sh'})
+    call dein#add('ncm2/float-preview.nvim')
     call dein#add('roxma/python-support.nvim', {'hook_post_update': join(['PythonSupportInitPython3', 'PythonSupportInitPython2'], '\n')})
     " File type addons
     call dein#add('sheerun/vim-polyglot')
@@ -133,10 +134,10 @@ inoremap <expr><C-g>     deoplete#undo_completion()
 inoremap <expr><C-l>     deoplete#complete_common_string()
 "imap <expr><CR> pumvisible() ? deoplete#mappings#close_popup() : "\<CR>\<Plug>AutoPairsReturn"
 "inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-"function! s:my_cr_function() abort
-"  return deoplete#close_popup()
-"endfunction
-"inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+function! s:my_cr_function() abort
+  return deoplete#close_popup()
+endfunction
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
@@ -186,8 +187,8 @@ imap <C-j> <Plug>(neosnippet_expand_or_jump)
 smap <C-j> <Plug>(neosnippet_expand_or_jump)
 xmap <C-j> <Plug>(neosnippet_expand_target)
 autocmd InsertLeave * NeoSnippetClearMarkers
-"imap <expr><CR> pumvisible() ?  deoplete#insert_candidate(1) : "\<CR>\<Plug>AutoPairsReturn"
-"imap <expr><CR> neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" : pumvisible() ?  deoplete#mappings#close_popup() : "\<CR>\<Plug>AutoPairsReturn"
+imap <expr><CR> pumvisible() ?  deoplete#insert_candidate(1) : "\<CR>\<Plug>AutoPairsReturn"
+imap <expr><CR> neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" : pumvisible() ?  deoplete#mappings#close_popup() : "\<CR>\<Plug>AutoPairsReturn"
 imap <expr><TAB>
 \ pumvisible() ? "\<C-n>" :
 \ neosnippet#expandable_or_jumpable() ?
@@ -201,12 +202,14 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 set formatexpr=LanguageClient_textDocument_rangeFormatting_sync()
 let g:LanguageClient_autoStart = 1
 let g:LanguageClient_serverCommands = {
-    \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
-    \ 'go': ['bingo', '--format-style', 'goimports', '--diagnostics-style', 'instant', '--enhance-signature-help', '--logfile', '/home/mikn/tmp/bingo.log'],
+    \ 'rust': ['rustup', 'run', 'stable', 'rls'],
+    \ 'terraform': ['terraform-lsp'],
+    \ 'go': ['gopls', '-logfile', '/home/mikn/tmp/gopls.log'],
     \ 'python': ['pyls', '--log-file', '/tmp/pyls.log'],
     \ 'java': ['java', '-Declipse.application=org.eclipse.jdt.ls.core.id1', '-Dosgi.bundles.defaultStartLevel=4', '-Declipse.product=org.eclipse.jdt.ls.core.product', '-Dlog.level=ALL', '-noverify', '-Xmx1G', '-jar', '/home/mikael/devel/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/plugins/org.eclipse.equinox.launcher_1.5.300.v20190213-1655.jar', '-configuration', '/home/mikael/devel/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/config_linux', '-data', projectroot#guess(), '--add-modules=ALL-SYSTEM', '--add-opens', 'java.base/java.util=ALL-UNNAMED', '--add-opens', 'java.base/java.lang=ALL-UNNAMED'],
     \ }
 "\ 'python': ['python3', '-c', 'import pyls.__main__; pyls.__main__.main()'],
+"    \ 'go': ['bingo', '--format-style', 'goimports', '--diagnostics-style', 'instant', '--enhance-signature-help', '--logfile', '/home/mikn/tmp/bingo.log'],
 
 function LC_maps()
   if has_key(g:LanguageClient_serverCommands, &filetype)
@@ -220,6 +223,7 @@ function LC_maps()
     nnoremap <leader>lc :call LanguageClient#textDocument_completion()<CR>
     nnoremap <leader>ls :call LanguageClient_textDocument_documentSymbol()<CR>
     nnoremap <leader>lm :call LanguageClient_contextMenu()<CR>
+    nnoremap <leader>lr :LanguageClientStop \| LanguageClientStart<CR>
     autocmd InsertLeave * call LanguageClient#textDocument_formatting()
   endif
   if has('conceal')
@@ -242,13 +246,13 @@ function! Denite_ctrlp()
 endfunction
 let g:denite_source_history_yank_enable = 1
 "call denite#filters#matcher_default#use(['matcher_fuzzy'])
-nnoremap <silent> <C-p>  :<C-u>Denite -buffer-name=files file/rec<cr>
-nnoremap <C-c> :<C-u>Denite -buffer-name=explorer file<cr>
-nnoremap <C-k> :<C-u>Denite -buffer-name=bookmark bookmark<cr>
-nnoremap <C-o> :<C-u>Denite -buffer-name=outline documentSymbol<cr>
-nnoremap <C-s> :<C-u>Denite -buffer-name=outline workspaceSymbol<cr>
-nnoremap <C-b> :<C-u>Denite -buffer-name=grep grep<cr>
-nnoremap <leader>y :<C-u>Denite -no-split -buffer-name=yank history/yank<cr>
+nnoremap <silent> <C-p>  :<C-u>Denite -split=floating -post-action=quit -buffer-name=files file/rec<cr>
+nnoremap <C-c> :<C-u>Denite -split=floating -post-action=quit -buffer-name=explorer file<cr>
+nnoremap <C-k> :<C-u>Denite -split=floating -post-action=quit -buffer-name=bookmark bookmark<cr>
+nnoremap <C-o> :<C-u>Denite -split=floating -post-action=quit -buffer-name=outline documentSymbol<cr>
+nnoremap <C-s> :<C-u>Denite -split=floating -post-action=quit -buffer-name=outline workspaceSymbol<cr>
+nnoremap <C-b> :<C-u>Denite -split=floating -post-action=quit -buffer-name=grep grep<cr>
+nnoremap <leader>y :<C-u>Denite -split=floating -buffer-name=yank history/yank<cr>
 
 "call denite#custom#var('file_rec', 'command', ['rg', '--files', '--glob', '!.git'])
 "call denite#custom#var('grep', 'command', ['rg', '--threads', '1'])
@@ -256,54 +260,43 @@ nnoremap <leader>y :<C-u>Denite -no-split -buffer-name=yank history/yank<cr>
 "call denite#custom#var('grep', 'final_opts', [])
 "call denite#custom#var('grep', 'separator', ['--'])
 "call denite#custom#var('grep', 'default_opts', ['--vimgrep', '--no-heading'])
-call denite#custom#var('file_rec', 'command', ['ag', '--follow', '--nocolor', '--nogroup',  '--hidden', '--ignore', '.git', '-g', ''])
+call denite#custom#var('file_rec', 'command', ['ag', '--follow', '--nocolor', '--nogroup',  '--hidden', '--ignore', '.git', '--ignore', '.terraform', '-g', ''])
 call denite#custom#var('grep', 'command', ['ag'])
 call denite#custom#var('grep', 'default_opts', ['-i', '--vimgrep'])
 call denite#custom#var('grep', 'recursive_opts', [])
 call denite#custom#var('grep', 'pattern_opt', [])
 call denite#custom#var('grep', 'separator', ['--'])
 call denite#custom#var('grep', 'final_opts', [])
+call denite#custom#option('_', 'statusline', v:false)
+call denite#custom#option('_', 'max_dynamic_update_candidates', 100000)
 
 " Custom mappings for the denite buffer
-autocmd FileType denite call s:denite_settings()
-function! s:denite_settings()
-    " Play nice with supertab
-    let b:SuperTabDisabled=1
-    " Enable navigation with control-j and control-k in insert mode
-    imap <silent><buffer><expr> <C-s> denite#do_action('split')
-    imap <buffer> <C-j>   <Plug>(denite_select_next_line)
-    imap <buffer> <C-k>   <Plug>(denite_select_previous_line)
+
+autocmd FileType denite call s:denite_my_settings()
+function! s:denite_my_settings() abort
+  nnoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
+  nnoremap <silent><buffer><expr> d denite#do_map('do_action', 'delete')
+  nnoremap <silent><buffer><expr> p denite#do_map('do_action', 'preview')
+  nnoremap <silent><buffer><expr> q denite#do_map('quit')
+  nnoremap <silent><buffer><expr> i denite#do_map('open_filter_buffer')
+  nnoremap <silent><buffer><expr> <Space> denite#do_map('toggle_select').'j'
+  call denite#do_map('open_filter_buffer')
 endfunction
-function! s:denite_my_settings()
-  imap <buffer> jj      <Plug>(denite_insert_leave)
-  "imap <buffer> <C-w>     <Plug>(denite_delete_backward_path)
 
-  imap <buffer><expr> j denite#smart_map('j', '')
-  imap <buffer> <TAB>   <Plug>(denite_select_next_line)
-  imap <buffer> <C-w>     <Plug>(denite_delete_backward_path)
-  imap <buffer> '     <Plug>(denite_quick_match_default_action)
-  nmap <buffer> '     <Plug>(denite_quick_match_default_action)
-  imap <buffer><expr> x denite#smart_map('x', "\<Plug>(denite_quick_match_jump)")
-  nmap <buffer> x     <Plug>(denite_quick_match_jump)
-  nmap <buffer> <C-z>     <Plug>(denite_toggle_transpose_window)
-  imap <buffer> <C-z>     <Plug>(denite_toggle_transpose_window)
-  nmap <buffer> <C-j>     <Plug>(denite_toggle_auto_preview)
-  nmap <buffer> <C-r>     <Plug>(denite_narrowing_input_history)
-  imap <buffer> <C-r>     <Plug>(denite_narrowing_input_history)
-  nnoremap <silent><buffer><expr> l denite#smart_map('l', denite#do_action('default'))
 
-  let denite = denite#get_current_denite()
-  if denite.profile_name ==# 'search'
-    nnoremap <silent><buffer><expr> r     denite#do_action('replace')
-  else
-    nnoremap <silent><buffer><expr> r     denite#do_action('rename')
-  endif
-
-  nnoremap <silent><buffer><expr> cd     denite#do_action('lcd')
-  nnoremap <buffer><expr> S      denite#mappings#set_current_filters(empty(denite#mappings#get_current_filters()) ?  ['sorter_reverse'] : [])
-
-  imap <silent><buffer><expr> <C-s>     denite#do_action('split')
-  imap <silent><buffer><expr> <C-f> denite#do_action('file_rec/async')
+autocmd FileType denite-filter call s:denite_filter_settings()
+function! s:denite_filter_settings()
+  " Play nice with supertab
+  let b:SuperTabDisabled=1
+  " Enable navigation with control-j and control-k in insert mode
+  inoremap <silent><buffer> <C-j>
+  \ <Esc><C-w>p:call cursor(line('.')+1,0)<CR><C-w>pA
+  inoremap <silent><buffer> <C-k>
+  \ <Esc><C-w>p:call cursor(line('.')-1,0)<CR><C-w>pA
+  imap <silent><buffer><expr> <C-s> denite#do_action('split')
+  inoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
+  call deoplete#custom#buffer_option('auto_complete', v:false)
+  inoremap <silent><buffer> <ESC> <Plug>(denite_filter_quit)
 endfunction
 
 """

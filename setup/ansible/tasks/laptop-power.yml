@@ -1,0 +1,87 @@
+---
+
+- name: audio powersave
+  copy:
+    content: |
+      options snd_hda_intel power_save=1
+    dest: /etc/modprobe.d/audio_powersave.conf
+  become: yes
+  #
+  #
+  #- name: powersave iwlwifi
+  #  copy:
+  #    content: |
+  #      options iwlwifi power_save=1 d0i3_disable=0 uapsd_disable=0
+  #    dest: /etc/modprobe.d/iwlwifi.conf
+  #  become: yes
+
+- name: pci devices power management
+  copy:
+    content: |
+      ACTION=="add", SUBSYSTEM=="pci", TEST=="power/control", ATTR{power/control}="auto"
+    dest: /etc/udev/rules.d/pci_pm.rules
+  notify: "reload udev rules"
+  become: yes
+
+- name: usb devices power management
+  copy:
+    content: |
+      ACTION=="add", SUBSYSTEM=="usb", TEST=="power/control", ATTR{power/control}="auto"
+    dest: /etc/udev/rules.d/50-usb_power_save.rules
+  notify: "reload udev rules"
+  become: yes
+
+- name: power-saving script
+  copy:
+    src: powersave.sh
+    dest: /usr/local/bin/powersave
+    mode: "755"
+  become: yes
+
+- name: link udev to powersave script
+  copy:
+    content: |
+      SUBSYSTEM=="power_supply", ATTR{online}=="0", RUN+="/usr/local/bin/powersave true"
+      SUBSYSTEM=="power_supply", ATTR{online}=="1", RUN+="/usr/local/bin/powersave false"
+    dest: /etc/udev/rules.d/powersave.rules
+  notify: "reload udev rules"
+  become: yes
+
+- name: ensure system-sleep folder exists
+  file:
+    path: /etc/systemd/system-sleep
+    state: directory
+  become: yes
+
+- name: set systemd sleep hook
+  copy:
+    src: systemd-powersave-hook
+    dest: /etc/systemd/system-sleep/00powersave
+    mode: "755"
+  become: yes
+
+- name: install systemd unit to boot with correct settings
+  copy:
+    content: |
+      [Unit]
+      After=network.target
+
+      [Service]
+      ExecStart=/usr/local/bin/powersave auto
+
+      [Install]
+      WantedBy=default.target
+    dest: /etc/systemd/system/powersave.service
+  become: yes
+
+- name: ensure powersave unit is loaded
+  systemd:
+    name: powersave.service
+    enabled: yes
+  become: yes
+
+- name: install logind.conf to manage lid switch
+  copy:
+    src: logind.conf
+    dest: /etc/systemd/logind.conf
+  become: yes

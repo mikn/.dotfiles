@@ -1,0 +1,57 @@
+---
+
+- name: install wifi dependencies
+  apt:
+    name: "{{ packages }}"
+    state: present
+  become: yes
+  vars:
+    packages:
+      - iwd
+      - resolvconf
+
+- name: remove wpasupplicant
+  apt:
+    name: wpasupplicant
+    state: absent
+  become: yes
+
+- name: ensure iwd config dir
+  file:
+    path: /etc/iwd
+    state: directory
+  become: yes
+
+- name: configure iwd
+  copy:
+    src: iwd-main.conf
+    dest: /etc/iwd/main.conf
+  become: yes
+
+- name: enable systemd-resolved
+  systemd:
+    name: systemd-resolved
+    enabled: yes
+    state: started
+  become: yes
+
+- name: configure systemd-resolved
+  copy:
+    src: resolved.conf
+    dest: /etc/systemd/resolved.conf
+  become: yes
+
+- name: enable systemd-networkd
+  systemd:
+    name: systemd-networkd
+    enabled: yes
+    state: started
+  become: yes
+
+- name: symlink resolv.conf from systemd-resolved
+  file:
+    state: link
+    force: yes
+    src: /run/systemd/resolve/stub-resolv.conf
+    dest: /etc/resolv.conf
+  become: yes

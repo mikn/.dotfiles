@@ -1,0 +1,43 @@
+---
+
+- name: install sway-session into wayland-sessions
+  copy:
+    content: |
+      [Desktop Entry]
+      Name=Sway Service
+      Comment=SirCmpwn's Wayland window manager as a systemd service
+      Exec=/usr/local/bin/sway-service
+      Type=Application
+    dest: /usr/share/wayland-sessions/sway-session.desktop
+  become: yes
+
+- name: install wrapper script for starting sway.service with correct env
+  copy:
+    content: |
+      #! /bin/sh
+
+      # first import environment variables from the login manager
+      systemctl --user import-environment
+      # then start the service
+      exec systemctl --wait --user start sway.service
+    dest: /usr/local/bin/sway-service
+    mode: "755"
+  become: yes
+
+- name: install sway unit file
+  copy:
+    src: sway.service
+    dest: /etc/systemd/user/sway.service
+  become: yes
+
+- name: install sway-session target
+  copy:
+    src: sway-session.target
+    dest: /etc/systemd/user/sway-session.target
+  become: yes
+
+- name: activate swaybg
+  systemd:
+    name: swaybg.service
+    enabled: yes
+    scope: user

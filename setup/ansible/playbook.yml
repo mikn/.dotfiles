@@ -1,7 +1,97 @@
 ---
 
-- hosts: all
+- hosts: localhost
   tasks:
-    - name: lid-lock setup logind
-    - name: set up lock-command
-    - name: network configuration
+    - name: configure apt with testing/unstable and experimental
+      copy:
+        src: sources.list
+        dest: /etc/apt/sources.list
+      become: yes
+    - name: apt preferences for lower priority for unstable
+      copy:
+        src: 10-unstable
+        dest: /etc/apt/preferences.d/10-unstable
+      become: yes
+    - name: install base requirements
+      apt:
+        name: "{{ packages }}"
+        state: present
+        update_cache: yes
+      become: yes
+      vars:
+        packages:
+          - neovim
+          - git
+          - curl
+          - rofi
+          - fish
+          - psmisc
+          - j4-dmenu-desktop
+          - silversearcher-ag
+          - golang-go
+          - sway
+          - swaylock
+          - expect
+          - swayidle
+          - wl-clipboard
+          - xwayland
+          - openvpn
+          - openvpn-systemd-resolved
+          - firefox
+          - bind-dnsutils
+          - nmap
+          - python3-pip
+          - brightnessctl
+          - grim
+          - slurp
+          - gpg-agent
+          - scdaemon
+          - libtool-bin
+          - pinentry-gnome3
+          - lightdm
+          - efibootmgr
+          - fwupd
+          - kexec-tools
+          - libnotify-bin
+          - gimp
+          - ranger
+          - feh
+          - debootstrap
+          - eatmydata
+          - sbuild
+          - schroot
+          - git-buildpackage
+          - mercurial
+          - graphviz
+          # login screen dependencies
+          - gstreamer1.0-plugins-good
+          - gstreamer1.0-libav
+          - phonon4qt5-backend-gstreamer
+          - qml-module-qtgraphicaleffects
+          - qml-module-qtquick-controls2
+          - libqt5multimedia5-plugins
+          - qml-module-qtmultimedia
+    - name: desktop
+      import_tasks: tasks/desktop.yml
+    - name: backlight
+      import_tasks: tasks/backlight.yml
+    - name: wifi setup
+      import_tasks: tasks/wifi.yml
+    - name: lockscreen
+      import_tasks: tasks/lockscreen.yml
+    - name: laptop power settings
+      import_tasks: tasks/laptop-power.yml
+    - name: boot config
+      import_tasks: tasks/boot.yml
+    - name: yubikey
+      import_tasks: tasks/yubikey.yml
+#    - name: lid setup -- it doesn't resume from suspend
+#    - name: secureboot (quickboot)
+#    - name: fonts
+#    - name: set up rust
+#    - name: alacritty
+#    - name: i3status-rs
+
+  handlers:
+    - name: reload udev
+      import_tasks: handlers/main.yml

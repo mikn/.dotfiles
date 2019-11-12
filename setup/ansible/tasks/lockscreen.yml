@@ -1,0 +1,13 @@
+---
+
+- name: install sleep conf for systemd
+  copy:
+    src: sleep.conf
+    dest: /etc/systemd/sleep.conf
+  become: yes
+
+- name: activate suspend.service for lockscreen
+  systemd:
+    name: suspend.service
+    enabled: yes
+    scope: user
